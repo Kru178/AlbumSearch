@@ -31,7 +31,8 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
     
     func loadAlbum(for id: Int?) {
         guard let id = albumId else { return }
-        NetworkService.shared.getResult(for: nil, id: id, completed: { result in
+        NetworkService.shared.getResult(for: nil, id: id, completed: { [weak self] result in
+            guard let self = self else { return }
             DispatchQueue.main.async {
                 switch result {
                 case .failure(let error):

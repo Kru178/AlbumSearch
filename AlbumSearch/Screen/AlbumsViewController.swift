@@ -54,7 +54,8 @@ class AlbumsViewController: UIViewController, UISearchBarDelegate, UICollectionV
             }
         }
         albums.removeAll()
-        NetworkService.shared.getResult(for: keyword, id: nil) { result in
+        NetworkService.shared.getResult(for: keyword, id: nil) { [weak self] result in
+            guard let self = self else { return }
             DispatchQueue.main.async {
                 switch result {
                 case .success(let list):
